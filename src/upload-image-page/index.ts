@@ -1,0 +1,1 @@
+export { UploadImagePage } from './main'; 

@@ -2,6 +2,8 @@
   "name": "image-upload-frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",
+  "homepage": ".",
   "dependencies": {
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
@@ -12,8 +14,12 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "hoist-non-react-statics": "^3.3.2",
     "react": "^18.1.0",
+    "react-bootstrap": "^2.3.1",
     "react-dom": "^18.1.0",
+    "react-icons": "^4.3.1",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.5",
     "typescript": "^4.4.2",
@@ -21,6 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-backend": "cd .. && cd image-upload-backend && FLASK_APP=flaskr && FLASK_ENV=development && flask run --no-debugger",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
