@@ -1,50 +1,51 @@
 import React, { useState } from 'react';
-import { storage } from '../firebase';
-import { ref, uploadBytes } from 'firebase/storage';
 import { FileUploader } from 'react-drag-drop-files';
 import ReactiveButton from 'reactive-button';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 import placeholder from '../assets/logo.svg';
+import { ErrorToaster, SuccessToaster, WarningToaster } from '../assets/toast';
+import { useUserId } from '../auth';
 
 import { FileUploaderWrapper, PlaceholderImageWrapper, UploadButtonWrapper } from './styled';
 
 const fileTypes = ["JPEG", "PNG", "SVG"];
 
-const successToaster = () => {
-    toast.success('Successfully uploaded image!', {
-        position: 'bottom-left',
-        autoClose: 3000,
-        draggable: false,
-    });
-}
-
-const warningToaster = () => {
-    toast.warn('Please upload an image!', {
-        position: 'bottom-left',
-        autoClose: 3000,
-        draggable: false
-    })
-}
-
 export const UploadImagePage = () => {
+    const { userId } = useUserId();
+
     const [imageFileUpload, setImageFileUpload] = useState(null);
 
     function uploadImage() {
         if (imageFileUpload === null) {
-            warningToaster();
+            WarningToaster("Please upload an image!", 3000);
             return;
         }
-        // fix the path at which the image get stored
-        // something like userId/{image_file_path}
-        const imageRef = ref(storage, `another test`)
-        uploadBytes(imageRef, imageFileUpload).then((snapshot) => {
-            successToaster();
-            setImageFileUpload(null);
-            console.log("the snapshot is", snapshot);
-            const imageStorageUrl = snapshot.metadata.bucket + '/' + snapshot.metadata.fullPath;
-            console.log(imageStorageUrl)
-        })
+
+        if (userId === null || userId === undefined) {
+            ErrorToaster("Error: Attempted to upload image before signing in", 3000);
+            return;
+        }
+
+        console.log(imageFileUpload);
+
+        const formData = new FormData();
+        formData.append('file', imageFileUpload);
+        formData.append('filename', `${uuidv4()}`);
+
+        fetch('/upload', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'user_id': userId
+            }
+        }).then((response) => {
+            response.json().then(() => {
+                SuccessToaster("200: Successfully uploaded image!", 3000);
+            }).catch((error) => {
+                ErrorToaster(`Error while uploading image: ${error}`, 3000);
+            })
+        });
     }
 
     const handleChange = (file: any) => {
@@ -54,13 +55,14 @@ export const UploadImagePage = () => {
         <>
             <FileUploaderWrapper>
                 <PlaceholderImageWrapper>
-                    <img src={imageFileUpload ? URL.createObjectURL(imageFileUpload) : placeholder} alt='logo' width={'500px'} height={'500px'} />
+                    <img src={imageFileUpload ? URL.createObjectURL(imageFileUpload) : placeholder} alt='logo' width={'500px'} height={'500px'}/>
                 </PlaceholderImageWrapper>
                 <FileUploader
                     multiple={false}
                     handleChange={handleChange}
                     name="file"
                     types={fileTypes}
+                    maxSize={1}
                 />
                 <UploadButtonWrapper>
                     <ReactiveButton

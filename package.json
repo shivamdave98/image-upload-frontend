@@ -2,7 +2,6 @@
   "name": "image-upload-frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
   "homepage": ".",
   "dependencies": {
     "@material-ui/core": "^4.12.4",
@@ -25,6 +24,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^8.2.0",
+    "react-token-auth": "^2.3.8",
     "reactive-button": "^1.3.12",
     "styled-components": "^5.3.5",
     "typescript": "^4.4.2",
@@ -32,7 +32,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-backend": "cd .. && cd image-upload-backend && FLASK_APP=flaskr && FLASK_ENV=development && flask run --no-debugger",
+    "start-api": "cd api && env/bin/flask run",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -43,6 +43,7 @@
       "react-app/jest"
     ]
   },
+  "proxy": "http://localhost:5000",
   "browserslist": {
     "production": [
       ">0.2%",

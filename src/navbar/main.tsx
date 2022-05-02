@@ -26,6 +26,9 @@ export const Navbar = () => {
                 <NavLink to='/sign-up'>
                     Sign Up
                 </NavLink>
+                <NavLink to='/logout'>
+                    Logout
+                </NavLink>
             </NavMenu>
             <NavBtn>
                 <NavBtnLink to='/login'>Sign In</NavBtnLink>

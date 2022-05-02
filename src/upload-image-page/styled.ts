@@ -9,6 +9,8 @@ export const PlaceholderImageWrapper = styled.div`
     margin-top: 10%;
     display: grid;
     justify-content: center;
+    // max-height: 500px;
+    // max-width: 500px;
 `;
 
 export const UploadButtonWrapper = styled.div`

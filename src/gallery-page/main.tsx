@@ -1,29 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { storage } from '../firebase';
-import { getDownloadURL, listAll, ref } from 'firebase/storage';
-import { url } from 'inspector';
+import { ToastContainer } from 'react-toastify';
+import { useUserId, useToken } from '../auth';
+import placeholder from '../assets/no-image.png';
+import { ErrorToaster, SuccessToaster, WarningToaster } from '../assets/toast';
+import { Container, ImageWrapper } from './styled';
 
 export const GalleryPage = () => {
     const [imageUrlList, setImageUrlList] = useState<string[]>([]);
+    const { userId } = useUserId();
 
-    const imageUrlListRef = ref(storage, '/');
+    const body = { 'user_id': userId }
+
     useEffect(() => {
-        listAll(imageUrlListRef).then((response) => {
-            response.items.forEach((item) => {
-                getDownloadURL(item).then((url) => {
-                    // might wanna reconsider useState
-                    setImageUrlList(imageUrlList.concat([url]));
-                })
-            })
-        })
-    }, [])
-    console.log(imageUrlList);
+        fetch('/gallery', {
+            method: 'POST',
+            body: JSON.stringify(body)
+        }).then((r) => r.json()).then((response) => {
+            if (response.error) {
+                ErrorToaster(`${response.status_code}: ${response.error}- ${response.message}`);
+            } else if (response.images.length === 0) {
+                alert('Please upload a picture to view your gallery here :)')
+            }
+            else {
+                setImageUrlList(response.images);
+            }
+        });
+    }, []);
+
     return (
         <>
-            <h1>Gallery</h1>
-            {imageUrlList.map((url) => {
-                return <img src={url} width={'100px'} height={'100px'} />
-            })}
+            <Container>
+                {imageUrlList.map((url) => {
+                    return (<ImageWrapper>
+                        <img src={require(`/api/uploads/${userId}/${url}`)} alt='logo' width={'500px'} height={'500px'} />
+                    </ImageWrapper>)
+                })}
+            </Container>
+            <ToastContainer />
         </>
     );
 }
