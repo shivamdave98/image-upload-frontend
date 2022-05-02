@@ -48,14 +48,14 @@ Now we should be in our virtual environment `env` (which we can exit any time by
 Now, we can install all of our python and backend libraries...
 
 ```console
-$pip install flask
-$pip install flask_sqlalchemy
-$pip install flask-praetorian
-$pip install flask_cors
-$python3 -m pip install --upgrade pip
-$python3 -m pip install --upgrade Pillow
-$pip install uuid
-$pip install python-dotenv
+pip install flask
+pip install flask_sqlalchemy
+pip install flask_praetorian
+pip install flask_cors
+python3 -m pip install --upgrade pip
+python3 -m pip install --upgrade Pillow
+pip install uuid
+pip install python-dotenv
 ```
 
 ## Running the Backend
