@@ -4,7 +4,6 @@ from flask import Flask, request, Blueprint, jsonify
 import flask_sqlalchemy
 import flask_praetorian
 from flask_cors import CORS, cross_origin
-import pyrebase
 import uuid
 from PIL import Image, ImageFilter
 import random
@@ -166,7 +165,7 @@ def apply_transformation(path):
     watermark_image = watermark_image.resize((75, 75)).convert("RGBA")
 
     # apply random details filter
-    filters = [ImageFilter.BLUR, ImageFilter.CONTOUR, ImageFilter.EDGE_ENHANCE_MORE, ImageFilter.EMBOSS, ImageFilter.FIND_EDGES, ImageFilter.DETAIL]
+    filters = [ImageFilter.BLUR, ImageFilter.CONTOUR, ImageFilter.EDGE_ENHANCE_MORE, ImageFilter.EMBOSS, ImageFilter.FIND_EDGES, ImageFilter.DETAIL, ImageFilter.SMOOTH_MORE]
     img = Image.open(path)
     r = random.randint(0, len(filters)-1)
     img = img.filter(filters[r])
