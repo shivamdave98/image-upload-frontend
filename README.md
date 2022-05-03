@@ -64,12 +64,6 @@ In the **2nd terminal session**, please `cd` into the `image-upload-frontend` di
 
 Now run `yarn start-api`
 
-## Running the Backend
-
-In the **2nd terminal session**, please `cd` into the `image-upload-frontend` directory containing the project files
-
-Now run `yarn start-api`
-
 ## Running the Frontend
 
 In the **3rd terminal session**, please `cd` into the `image-upload-frontend` directory containing the project files
