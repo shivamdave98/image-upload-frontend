@@ -6,7 +6,7 @@ Please ensure you have `npm` and `yarn` installed on your machine
 
 https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
-https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable
+https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable (try using `sudo` to install globally if it fails)
 
 ## Clone the repository
 
