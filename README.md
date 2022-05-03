@@ -2,11 +2,15 @@
 
 ## Prerequisites
 
+Your system should have python/python3 installed and working
+
 Please ensure you have `npm` and `yarn` installed on your machine
 
 https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
 https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable (try using `sudo` to install globally if it fails)
+
+Also preferably have VSCode installed on your system (just in case)
 
 ## Clone the repository
 
